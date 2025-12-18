@@ -12,6 +12,7 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "http://localhost:5050",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
