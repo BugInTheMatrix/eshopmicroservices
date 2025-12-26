@@ -1,6 +1,7 @@
 ﻿using BuildingBlocks.Behaviors;
 using Carter;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,9 @@ builder.Services.AddMarten(options =>
 
 var app = builder.Build();
 
-
+app.UseExceptionHandler(exceptionHandlerApp =>
+{
+});
 app.MapCarter();
 
 app.Run();
