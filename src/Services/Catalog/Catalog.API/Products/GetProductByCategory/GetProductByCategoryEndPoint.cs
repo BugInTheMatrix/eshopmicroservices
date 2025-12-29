@@ -1,23 +1,23 @@
 ﻿
 using Catalog.API.Products.GetProductById;
 
-namespace Catalog.API.Products.GetProductByCategory
+namespace Catalog.API.Products.GetProductByCategories
 {
-    public record GetProductByCategoryResponse(IEnumerable<Product> Products);
-    public class GetProductByCategoryEndPoint : ICarterModule
+    public record GetProductByCategoriesResponse(IEnumerable<Product> Products);
+    public class GetProductByCategoriesEndPoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/Products/Category/{Category}", async (string Category, ISender Sender) =>
+            app.MapGet("/Products/Categories/{Categories}", async (string Categories, ISender Sender) =>
             {
-                var result= await Sender.Send(new GetProductByCategoryQuery(Category));
-                return Results.Ok(result.Adapt<GetProductByCategoryResponse>());
+                var result= await Sender.Send(new GetProductByCategoriesQuery(Categories));
+                return Results.Ok(result.Adapt<GetProductByCategoriesResponse>());
 
-            }).WithName("GetProductbyCategory")
-            .Produces<GetProductByCategoryResponse>(StatusCodes.Status200OK)
+            }).WithName("GetProductbyCategories")
+            .Produces<GetProductByCategoriesResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get Product by Category")
-            .WithDescription("Get Product by Category");
+            .WithSummary("Get Product by Categories")
+            .WithDescription("Get Product by Categories");
         }
     }
 }
