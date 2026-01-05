@@ -1,4 +1,5 @@
 ﻿
+using Basket.API.Data;
 using FluentValidation;
 
 namespace Basket.API.Basket.StoreBasket
@@ -14,12 +15,12 @@ namespace Basket.API.Basket.StoreBasket
             RuleFor(x => x.ShoppingCart.UserName).NotEmpty().WithMessage("username required");
         }
     }
-    public class StoreBasketHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+    public class StoreBasketHandler(IBasketRepository repository) : ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand request, CancellationToken cancellationToken)
         {
-            ShoppingCart cart = request.ShoppingCart;
-            return new StoreBasketResult("sw");
+            ShoppingCart cart = await repository.StoreBasket(request.ShoppingCart,cancellationToken);
+            return new StoreBasketResult(cart.UserName);
         }
     }
 }
