@@ -9,9 +9,9 @@ namespace Basket.API.Basket.StoreBasket
         {
             app.MapPost("/basket/", async (StoreBasketRequest request, ISender sender) => 
             {
-                var storeCommand = request.Adapt<StoreBasketRequest>();
-                var result=sender.Send(storeCommand);
-                var response = result.Adapt<StoreBasketResponse>();
+                var storeCommand = request.Adapt<StoreBasketCommand>();
+                var result= await sender.Send(storeCommand);
+                var response = new StoreBasketResponse(result.userName);
                 return Results.Created($"/basket/{response.userName}", response);
 
             })
