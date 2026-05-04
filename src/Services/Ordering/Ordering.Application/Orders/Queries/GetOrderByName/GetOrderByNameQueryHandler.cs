@@ -20,6 +20,7 @@ namespace Ordering.Application.Orders.Queries.GetOrderByName
                 .Where(o => o.OrderName.Value.Contains(query.Name))
                 .OrderBy(o => o.OrderName.Value)
                 .ToListAsync(cancellationToken);
+
             return new GetOrderByNameResult(orders.ToOrderDtoList());
         }
     }
