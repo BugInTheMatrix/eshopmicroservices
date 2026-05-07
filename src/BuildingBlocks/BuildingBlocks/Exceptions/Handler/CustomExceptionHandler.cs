@@ -11,13 +11,13 @@ namespace BuildingBlocks.Exceptions.Handler
     : IExceptionHandler
     {
         public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
-        {
+        { 
             logger.LogError(
                 "Error Message: {exceptionMessage}, Time of occurrence {time}",
                 exception.Message, DateTime.UtcNow);
 
             (string Detail, string Title, int StatusCode) details = exception switch
-            {
+             {
                 InternalServerException =>
                 (
                     exception.Message,

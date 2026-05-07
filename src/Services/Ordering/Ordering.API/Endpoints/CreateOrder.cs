@@ -4,7 +4,7 @@ using Ordering.Application.Orders.Commands.CreateOrder;
 namespace Ordering.API.Endpoints
 {
     public record CreateOrderRequest(OrderDto Order);
-    public record CreateOrderResponse(Guid Id);
+    public record CreateOrderResponse(Guid OrderId);
     public class CreateOrder : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
@@ -14,7 +14,7 @@ namespace Ordering.API.Endpoints
                 var command = request.Adapt<CreateOrderCommand>();
                 var result = await sender.Send(command);
                 var response = result.Adapt<CreateOrderResponse>();
-                return Results.Created($"/orders/{response.Id}", response);
+                return Results.Created($"/orders/{response.OrderId}", response);
             })
             .WithName("CreateOrder")
             .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
